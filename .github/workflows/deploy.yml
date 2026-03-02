@@ -31,11 +31,11 @@ jobs:
           mkdir -p output/rootless
 
           # 复制 deb 包
-          if [ "$(ls -A debs/rootful/*.deb 2>/dev/null)" ]; then
+          if [ -n "$(ls debs/rootful/*.deb 2>/dev/null)" ]; then
             cp debs/rootful/*.deb output/rootful/
           fi
 
-          if [ "$(ls -A debs/rootless/*.deb 2>/dev/null)" ]; then
+          if [ -n "$(ls debs/rootless/*.deb 2>/dev/null)" ]; then
             cp debs/rootless/*.deb output/rootless/
           fi
 
