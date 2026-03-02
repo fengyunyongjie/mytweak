@@ -1,0 +1,10 @@
+Package: com.fengyn.hellotweak
+Name: Hello Tweak
+Version: 1.0.0-1
+Architecture: iphoneos-arm64
+Description: 简单的测试插件 - 在状态栏时间后面添加火焰图标
+Maintainer: fengyn <fengyunyongjie@users.noreply.github.com>
+Author: fengyn
+Section: Tweaks
+Depends: mobilesubstrate (>= 0.9.5000)
+Icon: file:///Library/PreferenceBundles/HelloTweakPrefs.bundle/icon.png
