@@ -30,18 +30,13 @@ jobs:
           mkdir -p output/rootful
           mkdir -p output/rootless
 
-          # 复制 deb 包
-          if [ -n "$(ls debs/rootful/*.deb 2>/dev/null)" ]; then
-            cp debs/rootful/*.deb output/rootful/
-          fi
-
-          if [ -n "$(ls debs/rootless/*.deb 2>/dev/null)" ]; then
-            cp debs/rootless/*.deb output/rootless/
-          fi
+          # 复制 deb 包（使用 find 避免空目录问题）
+          find debs/rootful -name "*.deb" -exec cp {} output/rootful/ \; 2>/dev/null || true
+          find debs/rootless -name "*.deb" -exec cp {} output/rootless/ \; 2>/dev/null || true
 
           # 为 rootful 生成 Packages 文件
           cd output/rootful
-          if ls *.deb 1> /dev/null 2>&1; then
+          if [ -n "$(ls *.deb 2>/dev/null)" ]; then
             for deb in *.deb; do
               dpkg-deb -I "$deb" >> Packages
               echo "Filename: ./$(basename $deb)" >> Packages
@@ -51,15 +46,13 @@ jobs:
               echo "SHA256: $(shasum -a 256 "$deb" | cut -d' ' -f1)" >> Packages
               echo "" >> Packages
             done
-
-            # 压缩
             gzip -c Packages > Packages.gz
             bzip2 -k Packages
           fi
 
           # 为 rootless 生成 Packages 文件
           cd ../../output/rootless
-          if ls *.deb 1> /dev/null 2>&1; then
+          if [ -n "$(ls *.deb 2>/dev/null)" ]; then
             for deb in *.deb; do
               dpkg-deb -I "$deb" >> Packages
               echo "Filename: ./$(basename $deb)" >> Packages
@@ -69,8 +62,6 @@ jobs:
               echo "SHA256: $(shasum -a 256 "$deb" | cut -d' ' -f1)" >> Packages
               echo "" >> Packages
             done
-
-            # 压缩
             gzip -c Packages > Packages.gz
             bzip2 -k Packages
           fi
@@ -88,27 +79,31 @@ jobs:
           Description: iOS 插件源 - 支持 rootful 和 rootless
           EOF
 
-          # 添加校验和（rootful）
-          if [ -f "output/rootful/Packages" ]; then
+          # 添加 rootless 校验和
+          if [ -f "output/rootless/Packages" ]; then
             cat >> output/Release << EOF
 
           MD5Sum:
-           $(md5 -q output/rootful/Packages) $(stat -f%z output/rootful/Packages) rootful/Packages
-           $(md5 -q output/rootful/Packages.gz) $(stat -f%z output/rootful/Packages.gz) rootful/Packages.gz
-           $(md5 -q output/rootful/Packages.bz2) $(stat -f%z output/rootful/Packages.bz2) rootful/Packages.bz2
+           $(md5 -q output/rootless/Packages) $(stat -f%z output/rootless/Packages) rootless/Packages
+           $(md5 -q output/rootless/Packages.gz) $(stat -f%z output/rootless/Packages.gz) rootless/Packages.gz
+           $(md5 -q output/rootless/Packages.bz2) $(stat -f%z output/rootless/Packages.bz2) rootless/Packages.bz2
           SHA1:
-           $(shasum -a 1 output/rootful/Packages | cut -d' ' -f1) $(stat -f%z output/rootful/Packages) rootful/Packages
-           $(shasum -a 1 output/rootful/Packages.gz | cut -d' ' -f1) $(stat -f%z output/rootful/Packages.gz) rootful/Packages.gz
-           $(shasum -a 1 output/rootful/Packages.bz2 | cut -d' ' -f1) $(stat -f%z output/rootful/Packages.bz2) rootful/Packages.bz2
+           $(shasum -a 1 output/rootless/Packages | cut -d' ' -f1) $(stat -f%z output/rootless/Packages) rootless/Packages
+           $(shasum -a 1 output/rootless/Packages.gz | cut -d' ' -f1) $(stat -f%z output/rootless/Packages.gz) rootless/Packages.gz
+           $(shasum -a 1 output/rootless/Packages.bz2 | cut -d' ' -f1) $(stat -f%z output/rootless/Packages.bz2) rootless/Packages.bz2
           SHA256:
-           $(shasum -a 256 output/rootful/Packages | cut -d' ' -f1) $(stat -f%z output/rootful/Packages) rootful/Packages
-           $(shasum -a 256 output/rootful/Packages.gz | cut -d' ' -f1) $(stat -f%z output/rootful/Packages.gz) rootful/Packages.gz
-           $(shasum -a 256 output/rootful/Packages.bz2 | cut -d' ' -f1) $(stat -f%z output/rootful/Packages.bz2) rootful/Packages.bz2
+           $(shasum -a 256 output/rootless/Packages | cut -d' ' -f1) $(stat -f%z output/rootless/Packages) rootless/Packages
+           $(shasum -a 256 output/rootless/Packages.gz | cut -d' ' -f1) $(stat -f%z output/rootless/Packages.gz) rootless/Packages.gz
+           $(shasum -a 256 output/rootless/Packages.bz2 | cut -d' ' -f1) $(stat -f%z output/rootless/Packages.bz2) rootless/Packages.bz2
           EOF
           fi
 
           # 复制 Release 到 rootless
           cp output/Release output/rootless/
+          # 复制 Release 到 rootful（如果存在）
+          if [ -f "output/rootful/Packages" ]; then
+            cp output/Release output/rootful/
+          fi
 
           # 创建首页
           cat > output/index.html << 'HTMLEOF'
