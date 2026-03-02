@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+
+# deb 包（如果不想直接提交到仓库）
+# debs/**/*.deb
+
+# 本地构建输出
+output/
+.build/
+packages/
+
+# Theos
+.theos/
+
+# 临时文件
+*.swp
+*~

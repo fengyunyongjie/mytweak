@@ -1,0 +1,257 @@
+name: Deploy Repository to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup repository files
+        run: |
+          # 创建输出目录
+          mkdir -p output/rootful
+          mkdir -p output/rootless
+
+          # 复制 deb 包
+          if [ "$(ls -A debs/rootful/*.deb 2>/dev/null)" ]; then
+            cp debs/rootful/*.deb output/rootful/
+          fi
+
+          if [ "$(ls -A debs/rootless/*.deb 2>/dev/null)" ]; then
+            cp debs/rootless/*.deb output/rootless/
+          fi
+
+          # 为 rootful 生成 Packages 文件
+          cd output/rootful
+          if ls *.deb 1> /dev/null 2>&1; then
+            for deb in *.deb; do
+              dpkg-deb -I "$deb" >> Packages
+              echo "Filename: ./$(basename $deb)" >> Packages
+              echo "Size: $(stat -f%z "$deb")" >> Packages
+              echo "MD5sum: $(md5 -q "$deb")" >> Packages
+              echo "SHA1: $(shasum -a 1 "$deb" | cut -d' ' -f1)" >> Packages
+              echo "SHA256: $(shasum -a 256 "$deb" | cut -d' ' -f1)" >> Packages
+              echo "" >> Packages
+            done
+
+            # 压缩
+            gzip -c Packages > Packages.gz
+            bzip2 -k Packages
+          fi
+
+          # 为 rootless 生成 Packages 文件
+          cd ../../output/rootless
+          if ls *.deb 1> /dev/null 2>&1; then
+            for deb in *.deb; do
+              dpkg-deb -I "$deb" >> Packages
+              echo "Filename: ./$(basename $deb)" >> Packages
+              echo "Size: $(stat -f%z "$deb")" >> Packages
+              echo "MD5sum: $(md5 -q "$deb")" >> Packages
+              echo "SHA1: $(shasum -a 1 "$deb" | cut -d' ' -f1)" >> Packages
+              echo "SHA256: $(shasum -a 256 "$deb" | cut -d' ' -f1)" >> Packages
+              echo "" >> Packages
+            done
+
+            # 压缩
+            gzip -c Packages > Packages.gz
+            bzip2 -k Packages
+          fi
+
+          cd ../../
+
+          # 生成 Release 文件
+          cat > output/Release << 'EOF'
+          Origin: MyTweak Repository
+          Label: MyTweak Repository
+          Suite: stable
+          Codename: ios
+          Architectures: iphoneos-arm iphoneos-arm64
+          Components: main
+          Description: iOS 插件源 - 支持 rootful 和 rootless
+          EOF
+
+          # 添加校验和（rootful）
+          if [ -f "output/rootful/Packages" ]; then
+            cat >> output/Release << EOF
+
+          MD5Sum:
+           $(md5 -q output/rootful/Packages) $(stat -f%z output/rootful/Packages) rootful/Packages
+           $(md5 -q output/rootful/Packages.gz) $(stat -f%z output/rootful/Packages.gz) rootful/Packages.gz
+           $(md5 -q output/rootful/Packages.bz2) $(stat -f%z output/rootful/Packages.bz2) rootful/Packages.bz2
+          SHA1:
+           $(shasum -a 1 output/rootful/Packages | cut -d' ' -f1) $(stat -f%z output/rootful/Packages) rootful/Packages
+           $(shasum -a 1 output/rootful/Packages.gz | cut -d' ' -f1) $(stat -f%z output/rootful/Packages.gz) rootful/Packages.gz
+           $(shasum -a 1 output/rootful/Packages.bz2 | cut -d' ' -f1) $(stat -f%z output/rootful/Packages.bz2) rootful/Packages.bz2
+          SHA256:
+           $(shasum -a 256 output/rootful/Packages | cut -d' ' -f1) $(stat -f%z output/rootful/Packages) rootful/Packages
+           $(shasum -a 256 output/rootful/Packages.gz | cut -d' ' -f1) $(stat -f%z output/rootful/Packages.gz) rootful/Packages.gz
+           $(shasum -a 256 output/rootful/Packages.bz2 | cut -d' ' -f1) $(stat -f%z output/rootful/Packages.bz2) rootful/Packages.bz2
+          EOF
+          fi
+
+          # 复制 Release 到 rootless
+          cp output/Release output/rootless/
+
+          # 创建首页
+          cat > output/index.html << 'HTMLEOF'
+          <!DOCTYPE html>
+          <html lang="zh-CN">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>MyTweak Repository - iOS 插件源</title>
+              <style>
+                  * { margin: 0; padding: 0; box-sizing: border-box; }
+                  body {
+                      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                      min-height: 100vh;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      padding: 20px;
+                  }
+                  .container {
+                      background: white;
+                      border-radius: 20px;
+                      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+                      max-width: 600px;
+                      width: 100%;
+                      padding: 40px;
+                      text-align: center;
+                  }
+                  h1 {
+                      color: #333;
+                      margin-bottom: 10px;
+                      font-size: 28px;
+                  }
+                  .subtitle {
+                      color: #666;
+                      margin-bottom: 30px;
+                      font-size: 14px;
+                  }
+                  .repo-url {
+                      background: #f5f5f5;
+                      padding: 15px;
+                      border-radius: 10px;
+                      font-family: monospace;
+                      font-size: 14px;
+                      color: #333;
+                      margin: 20px 0;
+                      word-break: break-all;
+                  }
+                  .badge {
+                      display: inline-block;
+                      background: #667eea;
+                      color: white;
+                      padding: 5px 12px;
+                      border-radius: 20px;
+                      font-size: 12px;
+                      margin: 5px;
+                  }
+                  .instructions {
+                      text-align: left;
+                      background: #f9f9f9;
+                      padding: 20px;
+                      border-radius: 10px;
+                      margin-top: 30px;
+                  }
+                  .instructions h3 {
+                      color: #333;
+                      margin-bottom: 15px;
+                      font-size: 16px;
+                  }
+                  .instructions ol {
+                      margin-left: 20px;
+                      color: #555;
+                      line-height: 1.8;
+                  }
+                  .supported {
+                      margin-top: 20px;
+                      padding-top: 20px;
+                      border-top: 1px solid #eee;
+                  }
+                  .supported p {
+                      color: #666;
+                      font-size: 14px;
+                  }
+              </style>
+          </head>
+          <body>
+              <div class="container">
+                  <h1>📱 MyTweak Repository</h1>
+                  <p class="subtitle">iOS 插件源 - 支持 Rootless & Rootful</p>
+
+                  <div class="repo-url" id="repoUrl">
+                      https://YOUR_USERNAME.github.io/mytweak/
+                  </div>
+
+                  <div>
+                      <span class="badge">Rootless</span>
+                      <span class="badge">Rootful</span>
+                      <span class="badge">iOS 15-18</span>
+                  </div>
+
+                  <div class="instructions">
+                      <h3>📥 添加方法</h3>
+                      <ol>
+                          <li>打开 Cydia 或 Sileo</li>
+                          <li>点击「来源」→「编辑」→「添加」</li>
+                          <li>输入上方地址并添加</li>
+                          <li>回到「来源」搜索安装插件</li>
+                      </ol>
+                  </div>
+
+                  <div class="supported">
+                      <p>💬 Rootless: <code>/rootless/</code></p>
+                      <p>💻 Rootful: <code>/rootful/</code></p>
+                  </div>
+              </div>
+
+              <script>
+                  // 自动获取当前 URL
+                  const url = window.location.href;
+                  document.getElementById('repoUrl').textContent = url;
+              </script>
+          </body>
+          </html>
+          HTMLEOF
+
+          # 列出生成的文件
+          echo "📦 生成的文件结构:"
+          find output -type f | sort
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: output
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
