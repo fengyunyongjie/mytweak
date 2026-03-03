@@ -2,8 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyTweak Repository - iOS 插件源</title>
+    <title>MyTweak Repository</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -38,52 +37,60 @@
         }
         .badge {
             display: inline-block;
-            background: #667eea;
             color: white;
             padding: 5px 12px;
             border-radius: 20px;
             font-size: 12px;
             margin: 5px;
         }
+        .badge.rootless { background: #10b981; }
+        .badge.rootful { background: #f59e0b; }
+        .info-box {
+            background: #f0fdf4;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: left;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #166534;
+        }
+        .info-box strong { color: #14532d; }
         .instructions {
             text-align: left;
             background: #f9f9f9;
             padding: 20px;
             border-radius: 10px;
-            margin-top: 30px;
+            margin-top: 20px;
         }
         .instructions h3 { color: #333; margin-bottom: 15px; font-size: 16px; }
         .instructions ol { margin-left: 20px; color: #555; line-height: 1.8; }
-        .note {
-            margin-top: 20px;
-            padding: 15px;
-            background: #fff3cd;
-            border-radius: 10px;
-            color: #856404;
-            font-size: 14px;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>📱 MyTweak Repository</h1>
-        <p class="subtitle">iOS 插件源 - 支持 Rootless</p>
+        <p class="subtitle">iOS 插件源 - 标准架构支持</p>
         <div class="repo-url" id="repoUrl">https://fengyunyongjie.github.io/mytweak/</div>
         <div>
-            <span class="badge">Rootless</span>
-            <span class="badge">iOS 15-18</span>
+            <span class="badge rootless">Rootless (iphoneos-arm64)</span>
+            <span class="badge rootful">Rootful (iphoneos-arm)</span>
+            <span class="badge">iOS 12-18</span>
+        </div>
+        <div class="info-box">
+            <strong>✅ 已修正架构命名</strong><br>
+            • Rootless: Architecture = iphoneos-arm64<br>
+            • Rootful: Architecture = iphoneos-arm<br>
+            • Release 文件声明两个架构
         </div>
         <div class="instructions">
-            <h3>📥 添加方法</h3>
+            <h3>📥 添加后请清除缓存</h3>
             <ol>
-                <li>打开 Cydia 或 Sileo</li>
-                <li>点击「来源」→「编辑」→「添加」</li>
-                <li>输入上方地址并添加</li>
-                <li>回到「来源」搜索安装插件</li>
+                <li>在 Sileo 中删除此源</li>
+                <li>在设置中点击"清除缓存"</li>
+                <li>重新添加源</li>
+                <li>刷新源后即可看到插件</li>
             </ol>
-        </div>
-        <div class="note">
-            ℹ️ 更新时间: $(date -u +"%Y-%m-%d %H:%M UTC")
         </div>
     </div>
     <script>
