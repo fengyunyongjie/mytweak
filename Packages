@@ -1,4 +1,21 @@
 Package: com.fengyn.hellotweak
+Version: 1.0.0-1-1+debug
+Architecture: iphoneos-arm64
+Maintainer: fengyn <fengyunyongjie@users.noreply.github.com>
+Installed-Size: 152
+Depends: firmware (>= 15.0), ellekit
+Filename: debs/hellotweak_1.0.0-1_iphoneos-arm64.deb
+Size: 4276
+MD5sum: 04e5f7dd9eb438cab576c0c25100930b
+SHA1: faed6a4fdf9b85d933b089176090f9df77459d6a
+SHA256: d7839d1572f6c826ca9a788ee805b6ea4d9ee88da32226ecb631da464d0dd47b
+Section: Tweaks
+Description: 简单的测试插件 - 在状态栏时间后面添加火焰图标
+Author: fengyn
+Icon: file:///Library/PreferenceBundles/HelloTweakPrefs.bundle/icon.png
+Name: Hello Tweak
+
+Package: com.fengyn.hellotweak
 Version: 1.0.0-1-3+debug
 Architecture: iphoneos-arm
 Maintainer: fengyn <fengyunyongjie@users.noreply.github.com>
