@@ -31,16 +31,16 @@ Author: zedbully
 Name: Gck
 
 Package: com.yourcompany.sck
-Version: 0.0.1-1001+stable20260515
+Version: 0.0.1-1002+stable20260610
 Architecture: iphoneos-arm
 Maintainer: DarwinDev
 Installed-Size: 708
 Depends: mobilesubstrate (>= 0.9.5000), com.yourcompany.ack, com.yourcompany.gck
-Filename: debs/com.yourcompany.sck_0.0.1-1001+stable20260515_iphoneos-arm.deb
-Size: 114236
-MD5sum: f00a3bd7729d49100cd5cccd67df715e
-SHA1: 72b5b3053b52ae3ec03a1704015506e38eb45ce9
-SHA256: c20eb4d03251f050558171848c21a38d64ca2605bbdc3d20e327fe1520757af3
+Filename: debs/com.yourcompany.sck_0.0.1-1002+stable20260610_iphoneos-arm.deb
+Size: 117068
+MD5sum: fe3d86dac4adaf3e2c254a44cdecfe41
+SHA1: 511cf95b54963656da9dca290e8cbd9457f3dc39
+SHA256: c3023cb7f2e04243366657d2561321d2eef8cfcf5eb406078fb121882e1029c6
 Section: Tweaks
 Description: AppStore account management with embedded HTTP server (port 5003)
 Author: DarwinDev
