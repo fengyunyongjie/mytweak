@@ -35,12 +35,12 @@ Version: 0.0.1-1000+stable20260515
 Architecture: iphoneos-arm
 Maintainer: DarwinDev
 Installed-Size: 708
-Depends: mobilesubstrate (>= 0.9.5000)
+Depends: mobilesubstrate (>= 0.9.5000), com.yourcompany.ack, com.yourcompany.gck
 Filename: debs/com.yourcompany.sck_0.0.1-1000+stable20260515_iphoneos-arm.deb
-Size: 114816
-MD5sum: e9799b4e22a3134429532c0bde5d948f
-SHA1: 32c2a895f8f95875f222213413a8085cd8a6aaa7
-SHA256: dab8dc613af4fb4ba676221446dd64be77837b9a75a320138b0caf6fe872d654
+Size: 114396
+MD5sum: 2179e7ab383c28c7224f4af7d220d710
+SHA1: 3adc1ba4d865df47a7ec509ed4197474a102ebdf
+SHA256: d10b0ea1a2f06080e197afb1e57217c55d7b227d761d6dde807b3b9c96bdc771
 Section: Tweaks
 Description: AppStore account management with embedded HTTP server (port 5003)
 Author: DarwinDev

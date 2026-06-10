@@ -6,20 +6,20 @@ Codename: ios
 Architectures: iphoneos-arm
 Components: main
 Description: iOS 插件源 - 仅支持 Rootful
-Date: Wed, 10 Jun 2026 08:50:46 UTC
+Date: Wed, 10 Jun 2026 09:00:52 UTC
 
 MD5Sum:
- 073cb1ebb275c7b49c2d75bbf541d8b3 1574 Packages
- e18eb16fe6cd3cb3fe566ca0f147a291 774 Packages.bz2
- 9830c6f13f13533f6fa260ef70748170 736 Packages.xz
- 235cd1e89b4dff9a8f7592318c6e3fed 676 Packages.gz
+ 876a33a5fee28536360fe1dffaa81dfb 1616 Packages
+ 20ce4826628494e6cb86e42dca5fe5e8 798 Packages.bz2
+ ab7ea0e2a3cd5daf3ef93734856c9836 748 Packages.xz
+ aa1e87f1754c3dd4f43743e522bd3ba5 686 Packages.gz
 SHA1:
- d6006d55a60b20b05e7ea06b87289134c920cff2 1574 Packages
- 1be377f9c32ef5a17111e279e45f6eca64734919 774 Packages.bz2
- 864d2c74ddb1746deb05169f6aa5cc4fb4d134d8 736 Packages.xz
- 3ee36beeffa3bcf04fccd0807a7d400c3e11fa8f 676 Packages.gz
+ 86e491ea9d56bbbc34ccb740ec287dd4aa41fb62 1616 Packages
+ c085c6ef7f72df695842db3c03cd5cca0ff26dd1 798 Packages.bz2
+ 47ed8d7ad9110d1bf4aa675bcb6e4ef91a932433 748 Packages.xz
+ e692ce986e16386c179ac9d6fe105d0d6e357a17 686 Packages.gz
 SHA256:
- 98d936a2b05631f12f15d27911ea87f03b830386528a42c82e871219095fb0e8 1574 Packages
- 2189675e9e312508d28a48f79738e4b78f5621382a370407a13c3b49618a5316 774 Packages.bz2
- dbf5ee58c296b3cf7afb2a9ca6ad68c507be3313a39fa61863e7529474cacee6 736 Packages.xz
- 849646053eefcf19bd79838dd0dcdbaebac70a8004f4ed1ac8cfcf88a6e2423f 676 Packages.gz
+ ecb2c1ae15a2e61916b13475c9dcb0d1e77a15b7b13cee29f1c6a182df80083a 1616 Packages
+ eed0865f5834332dd468bd36836079e98ee47508a9155c0d32ef5358783f96cb 798 Packages.bz2
+ ec0613bd0ea686ba3ef12a5df4a4fb11eef628c7eb7696efd9dd36973d7ba894 748 Packages.xz
+ a703c1ae98bdf5cd68c955507f2149e8d06947c27bb6f48b185f8aedccf0bfae 686 Packages.gz
