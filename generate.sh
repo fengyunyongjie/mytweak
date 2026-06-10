@@ -33,9 +33,9 @@ Label: MyTweak Repository
 Suite: stable
 Version: 1.0
 Codename: ios
-Architectures: iphoneos-arm iphoneos-arm64
+Architectures: iphoneos-arm
 Components: main
-Description: iOS 插件源 - 支持 Rootless & Rootful
+Description: iOS 插件源 - 仅支持 Rootful
 Date: $(date -u +"%a, %d %b %Y %H:%M:%S UTC")
 
 MD5Sum:
