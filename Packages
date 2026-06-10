@@ -1,46 +1,46 @@
 Package: com.yourcompany.ack
-Version: 0.0.1-1+debug
+Version: 0.0.1-1000+stable20260515
 Architecture: iphoneos-arm
 Maintainer: zedbully
 Installed-Size: 180
 Depends: mobilesubstrate (>= 0.9.5000)
-Filename: debs/com.yourcompany.ack_0.0.1-1+debug_iphoneos-arm.deb
-Size: 44096
-MD5sum: a26001bf7ba61ddcbd246c0bdd9ad348
-SHA1: b7bf4b2741562a80684fa1fb0cd8d56f41243407
-SHA256: a466a929a460aa4e2859268f6679e6843a33e0ddfeb3a2553032cd6c3ceaac43
+Filename: debs/com.yourcompany.ack_0.0.1-1000+stable20260515_iphoneos-arm.deb
+Size: 41372
+MD5sum: bcb4f9b2bbb9a2d24691316b29331096
+SHA1: c7ac7037537885e7e29d2333820106073d7edb80
+SHA256: 8bba719bf91b8517092d6369cbd6baa8af96090401cc0db8f36f3991aaa548da
 Section: Tweaks
 Description: An awesome MobileSubstrate tweak!
 Author: zedbully
 Name: Ack
 
 Package: com.yourcompany.gck
-Version: 0.0.1-1+debug
+Version: 0.0.1-1000+stable20260519
 Architecture: iphoneos-arm
 Maintainer: zedbully
 Installed-Size: 176
 Depends: mobilesubstrate (>= 0.9.5000)
-Filename: debs/com.yourcompany.gck_0.0.1-1+debug_iphoneos-arm.deb
-Size: 42328
-MD5sum: 88f6a3e34955ecabf54bc85a80dc985b
-SHA1: fe8bea67b4e758d514786af3706a457ac43e4865
-SHA256: 6302b4e52bfcb78c0f37b764224571b5ca1554af1eb46e415d4ec5b5ce30a09a
+Filename: debs/com.yourcompany.gck_0.0.1-1000+stable20260519_iphoneos-arm.deb
+Size: 39712
+MD5sum: 77be010c31e6def6f490ba5d2a9dff7e
+SHA1: 9f3ca262940723fb2b5a58d71130f01d62355019
+SHA256: 4fa47b2497bcdf241006d6f5d2d5e6dc019b3adfe430fc965908837b3fd85e51
 Section: Tweaks
 Description: An awesome MobileSubstrate tweak!
 Author: zedbully
 Name: Gck
 
 Package: com.yourcompany.sck
-Version: 0.0.1-1+debug
+Version: 0.0.1-1000+stable20260515
 Architecture: iphoneos-arm
 Maintainer: DarwinDev
 Installed-Size: 708
 Depends: mobilesubstrate (>= 0.9.5000)
-Filename: debs/com.yourcompany.sck_0.0.1-1+debug_iphoneos-arm.deb
-Size: 124516
-MD5sum: ab479fd6448c1173a11a85df98591b47
-SHA1: 193ec963ee7abdcc3e5ced0c443c8229ec9fc51a
-SHA256: ccb3c504ff83a576dc43e4e4622db4f33a84626a541871300770765f6e2b1b17
+Filename: debs/com.yourcompany.sck_0.0.1-1000+stable20260515_iphoneos-arm.deb
+Size: 114816
+MD5sum: e9799b4e22a3134429532c0bde5d948f
+SHA1: 32c2a895f8f95875f222213413a8085cd8a6aaa7
+SHA256: dab8dc613af4fb4ba676221446dd64be77837b9a75a320138b0caf6fe872d654
 Section: Tweaks
 Description: AppStore account management with embedded HTTP server (port 5003)
 Author: DarwinDev
