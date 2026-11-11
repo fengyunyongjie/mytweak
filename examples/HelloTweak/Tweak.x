@@ -1,5 +1,7 @@
 #import <Foundation/Foundation.h>
+#import <objc/runtime.h>
 
+%group HelloTweakHooks
 %hook SBStatusBarStateProvider
 
 - (NSString *)timeString {
@@ -8,11 +10,13 @@
 }
 
 %end
-
-%hook SBStatusBarContentView
-
-- (void)setDate:(id)date {
-    %orig;
-}
-
 %end
+
+%ctor {
+    @autoreleasepool {
+        Class provider = objc_getClass("SBStatusBarStateProvider");
+        if (provider != Nil && class_getInstanceMethod(provider, @selector(timeString)) != NULL) {
+            %init(HelloTweakHooks, SBStatusBarStateProvider = provider);
+        }
+    }
+}

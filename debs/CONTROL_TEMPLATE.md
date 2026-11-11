@@ -1,73 +1,51 @@
-# Debian 控制文件模板
+# Debian control 模板
 
-## Rootless 插件控制文件模板
+这是说明文档，不是可发布的 deb。生成器只收录 `*.deb`，不会把这份模板复制到发布目录。接入规则统一见 [添加插件](../docs/adding-packages.md)。
 
-```control
-Package: com.yourname.tweakname
-Name: Your Tweak Name
-Version: 1.0.0-1
-Architecture: iphoneos-arm64
-Description: 简短描述 (一行)
- 长描述，可以写多行。
- 详细介绍插件功能。
-Maintainer: Your Name <your@email.com>
-Author: Your Name
-Section: Tweaks
-Depends: mobilesubstrate (>= 0.9.5000), firmware (>= 15.0)
-Filename: ./debs/rootless/com.yourname.tweakname_1.0.0-1_iphoneos-arm64.deb
-Size: <文件大小>
-MD5sum: <MD5值>
-SHA1: <SHA1值>
-SHA256: <SHA256值>
-```
-
-## Rootful 插件控制文件模板
+## rootful 独立构建
 
 ```control
-Package: com.yourname.tweakname
-Name: Your Tweak Name
+Package: com.example.tweak
+Name: Example Tweak
 Version: 1.0.0-1
-Architecture: iphoneos-arm64
-Description: 简短描述
- 长描述，可以写多行。
-Maintainer: Your Name <your@email.com>
-Author: Your Name
+Architecture: iphoneos-arm
+Description: 插件的一行描述
+Maintainer: Maintainer <maintainer@example.invalid>
 Section: Tweaks
 Depends: mobilesubstrate (>= 0.9.5000), firmware (>= 12.0)
-Filename: ./debs/rootful/com.yourname.tweakname_1.0.0-1_iphoneos-arm64.deb
-Size: <文件大小>
-MD5sum: <MD5值>
-SHA1: <SHA1值>
-SHA256: <SHA256值>
 ```
 
-## Makefile 示例
+## rootless 独立构建
 
-```makefile
-TARGET := iphone:clang:latest:15.0
-INSTALL_TARGET_PROCESSES = SpringBoard
-
-include $(THEOS)/makefiles/common.mk
-
-TWEAK_NAME = YourTweak
-
-YourTweak_FILES = Tweak.x
-YourTweak_CFLAGS = -fobjc-arc
-YourTweak_FRAMEWORKS = UIKit Foundation
-
-include $(THEOS_MAKE_PATH)/tweak.mk
+```control
+Package: com.example.tweak
+Name: Example Tweak
+Version: 1.0.0-1
+Architecture: iphoneos-arm64
+Description: 插件的一行描述
+Maintainer: Maintainer <maintainer@example.invalid>
+Section: Tweaks
+Depends: mobilesubstrate (>= 0.9.5000), firmware (>= 15.0)
 ```
 
-## 编译命令
+两个模式可沿用同一 Package ID、Version；需要分别编译。上述 firmware 和框架依赖是示例，不是所有插件的通用结论。务必与真实 deployment target、私有 API 和目标框架兼容接口一致。
 
-### Rootless
+**不要放入 control 的字段**：`Filename`、`Size`、`MD5sum`、`SHA1`、`SHA256`。它们由索引生成器从实际产物计算。
+
+## Theos
+
 ```bash
-make clean
-make package THEOS_PACKAGE_SCHEME=rootless
+# rootful：空 scheme，不能写 THEOS_PACKAGE_SCHEME=rootful
+make package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=
+
+# rootless：官方 scheme 处理包架构、安装前缀和链接搜索路径
+make package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
 ```
 
-### Rootful
+两次构建需要隔离工作目录，并同步最低 iOS 的控制字段。不要直接复制模板两遍再依赖文件名判断模式。本仓库提供带隔离和产物检查的 [HelloTweak 构建入口](../examples/HelloTweak/README.md)：
+
 ```bash
-make clean
-make package THEOS_PACKAGE_SCHEME=rootful
+THEOS=/opt/theos bash examples/compile.sh --scheme both
 ```
+
+默认 deb 文件名包含 `Package_Version_Architecture`，通常没有 `.rootless.` 标记。正确性依据是 control 与二进制内容，不是文件名。

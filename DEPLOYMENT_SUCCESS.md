@@ -1,4 +1,8 @@
-# 🎉 Deployment Successful!
+# 历史部署记录：2026-03-03
+
+> 以下保留当时的报告，**不是当前线上状态，也不是本次验证结果**。其中包数量、HelloTweak 支持范围和 rootless 必须依赖 ElleKit 等表述不作为现行规则。当前检入正式包状态见 [兼容性说明](docs/compatibility.md)，操作流程见 [发布指南](docs/publishing.md)。
+
+## 原始报告
 
 ## Repository URL
 **https://fengyunyongjie.github.io/mytweak/**

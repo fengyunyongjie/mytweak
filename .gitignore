@@ -5,6 +5,8 @@
 output/
 .build/
 packages/
+__pycache__/
+*.pyc
 
 # Theos
 .theos/
@@ -13,16 +15,13 @@ packages/
 *.swp
 *~
 
-# 部署文件（这些应该在 gh-pages 分支，不在 main）
-Packages
-Packages.bz2
-Packages.gz
-Packages.xz
-Release
-index.html
+# 旧版脚本在根目录生成的发布产物
+/Packages
+/Packages.bz2
+/Packages.gz
+/Packages.xz
+/Release
+/index.html
 
-# 旧的目录结构
-rootless/
-scripts/
-debs/rootless/
-.github/workflows/
+# 本地工具状态，不随插件源发布
+/.zcode/

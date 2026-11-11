@@ -1,0 +1,10 @@
+{
+  "origin": "fengyn",
+  "label": "MyTweak Repository",
+  "suite": "stable",
+  "version": "1.0",
+  "codename": "ios",
+  "components": "main",
+  "description": "iOS 插件源，按包提供 rootful / rootless 构建",
+  "url": "https://fengyunyongjie.github.io/mytweak/"
+}

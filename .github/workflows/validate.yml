@@ -1,0 +1,34 @@
+name: Validate repository
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install package tools
+        run: sudo apt-get update && sudo apt-get install -y dpkg-dev make
+      - name: Check shell entrypoints
+        run: |
+          for script in generate.sh update.sh deploy.sh examples/compile.sh; do
+            bash -n "$script"
+          done
+      - name: Run local tests
+        run: python3 -I -m unittest discover -s tests -v
+      - name: Generate and validate repository
+        run: |
+          bash generate.sh
+          python3 -I scripts/repo.py validate
+      - name: Ensure tracked inputs were not modified
+        run: git diff --exit-code

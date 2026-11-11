@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>$label</title>
+  <style>
+    :root { font-family: system-ui, sans-serif; line-height: 1.65; color-scheme: light dark; }
+    body { max-width: 60rem; margin: 0 auto; padding: 3rem 1.25rem; }
+    h1 { margin-bottom: .25rem; line-height: 1.25; }
+    h2 { margin-top: 2.5rem; }
+    p { max-width: 48rem; }
+    .muted, small { color: light-dark(#555, #bbb); }
+    .address { padding: 1rem; border: 1px solid light-dark(#ccc, #666); border-radius: .5rem; overflow-wrap: anywhere; }
+    .table { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th, td { padding: .9rem .75rem; border-bottom: 1px solid light-dark(#ddd, #555); vertical-align: top; }
+    th { white-space: nowrap; }
+    td { overflow-wrap: anywhere; }
+    a { color: light-dark(#1752a5, #9dc3ff); }
+    footer { margin-top: 3rem; font-size: .9rem; }
+    @media (max-width: 36rem) { body { padding-top: 2rem; } th, td { padding: .7rem .35rem; } }
+  </style>
+</head>
+<body>
+  <header>
+    <p class="muted">个人 iOS 插件仓库</p>
+    <h1>$label</h1>
+    <p>$description</p>
+  </header>
+  <main>
+    <section aria-labelledby="add-source">
+      <h2 id="add-source">添加源</h2>
+      <p>在兼容的包管理器中添加以下地址。客户端会按包架构选择可安装的版本。</p>
+      <p class="address"><a href="$url">$url</a></p>
+    </section>
+    <section aria-labelledby="packages">
+      <h2 id="packages">当前收录 · $count 个构建</h2>
+      <p class="muted">列表来自实际 deb 元数据。收录不等于设备验证通过；系统、越狱环境和注入框架兼容性需按插件确认。没有列出的 rootless 构建尚未提供。</p>
+      <div class="table">
+        <table>
+          <thead><tr><th scope="col">插件</th><th scope="col">版本</th><th scope="col">包架构</th></tr></thead>
+          <tbody>$rows</tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <footer class="muted">仓库元数据：<a href="Packages">Packages</a> · <a href="Release">Release</a></footer>
+</body>
+</html>
