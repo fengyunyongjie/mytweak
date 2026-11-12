@@ -3,23 +3,22 @@ Label: MyTweak Repository
 Suite: stable
 Version: 1.0
 Codename: ios
-Architectures: iphoneos-arm
 Components: main
-Description: iOS 插件源 - 仅支持 Rootful
-Date: Wed, 10 Jun 2026 10:58:23 UTC
-
+Description: iOS 插件源，按包提供 rootful / rootless 构建
+Architectures: iphoneos-arm iphoneos-arm64
+Date: Thu, 12 Nov 2026 03:03:23 GMT
 MD5Sum:
- 4f6ee4f5fa99f28b34ccba1b175577b7 1615 Packages
- f40e2109dd2b3dc315d6c70d5ff0abe2 806 Packages.bz2
- d3116d1c52b01e5973adadca29780417 752 Packages.xz
- 644dd8e1dee55c7a095c374032e08378 695 Packages.gz
+ 43b028e30836ba5e322f7af285003ce5 2776 Packages
+ a71d3baccfa65a72b4d2f32da66a8055 1105 Packages.gz
+ 3cb7caaf7d904fd29324afedd5180b11 1273 Packages.bz2
+ 608dd608df2236c209fb204134f6e322 1088 Packages.xz
 SHA1:
- fee2db563f6f21130be548a870f3cf51d2613335 1615 Packages
- 9c9360f6ed36a93b2642e287c3208ef152a4cc89 806 Packages.bz2
- 5bfc9d3f01cd672d93e6d0e0115925fd718c6d44 752 Packages.xz
- 3488797b9ec70b6d30fe7b250e3935075c31b559 695 Packages.gz
+ f4e79c654e37520bf186942fd2b02edc69540e83 2776 Packages
+ 3f6f4de1c79cacd5c1e6c0f460d31eed9fb9d680 1105 Packages.gz
+ e884d5e1c21e064bd9d0b19d3f29ea3fce5d5380 1273 Packages.bz2
+ 7d16048aaf66ab4baea19022430cbea1cc7b6fb7 1088 Packages.xz
 SHA256:
- 3c64b5793d1692c6ed60813a8511c414cce121460a39d508fa32a5163137a4b1 1615 Packages
- db9e61b2d6f6b0e042ce5b30870fb43b1972feef06dbfe5aab22ff32a3564f5f 806 Packages.bz2
- d34b53470bc417e0f0e830831f617d31372f159da96b3fac0b9bd0de82f37c27 752 Packages.xz
- e7613eea5b4004b9db01a7d07855664495e7cd519108f320077bfdbebad27bd6 695 Packages.gz
+ 5096e38f0b08f9d3a59ac031d0eb3948a2d24bd978c4ec31e3a566531c40373d 2776 Packages
+ 7a9869d4fb1dbc9eebc38354fc09a2b8dcfd14cc63d88e0f036d16dc74220b19 1105 Packages.gz
+ fcf94fd299fbc0f0565e2bf5a99a6014e02b07e2a4b1bef6a24178e940cf8202 1273 Packages.bz2
+ 08deccdb2acdf1da5cda9d2bd283d32bde32624c39fd23fb3b5b0b9d79f61b48 1088 Packages.xz

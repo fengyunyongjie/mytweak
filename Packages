@@ -1,3 +1,35 @@
+Package: com.fengyn.hellotweak
+Version: 1.0.0-2
+Architecture: iphoneos-arm
+Maintainer: fengyn <fengyunyongjie@users.noreply.github.com>
+Installed-Size: 56
+Depends: mobilesubstrate (>= 0.9.5000), firmware (>= 12.0)
+Filename: debs/com.fengyn.hellotweak_1.0.0-2_iphoneos-arm.deb
+Size: 4192
+MD5sum: 91f34f0fd91e913563ba588adca0b65d
+SHA1: ad1aee809cd2c40c03eda6f97e99f5b598f6c0ef
+SHA256: db71f863553b65d5007112e1a040035ef23b98c857cadfbba72f1f92268a2541
+Section: Tweaks
+Description: 简单的测试插件 - 在状态栏时间后面添加火焰图标
+Author: fengyn
+Name: Hello Tweak
+
+Package: com.fengyn.hellotweak
+Version: 1.0.0-2
+Architecture: iphoneos-arm64
+Maintainer: fengyn <fengyunyongjie@users.noreply.github.com>
+Installed-Size: 168
+Depends: mobilesubstrate (>= 0.9.5000), firmware (>= 15.0)
+Filename: debs/com.fengyn.hellotweak_1.0.0-2_iphoneos-arm64.deb
+Size: 5572
+MD5sum: 334544cfa49c5f6dcf7cfeaee600fcc2
+SHA1: 545ab42f22ea16810087ca3f0ad19b19c017514f
+SHA256: d2a0e63dbcf1a5bd3abb6f551b3521886cbb594829d1c7780936913ce127aeac
+Section: Tweaks
+Description: 简单的测试插件 - 在状态栏时间后面添加火焰图标
+Author: fengyn
+Name: Hello Tweak
+
 Package: com.yourcompany.ack
 Version: 0.0.1-1000+stable20260515
 Architecture: iphoneos-arm

@@ -1,100 +1,56 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <title>MyTweak Repository</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 600px;
-            width: 100%;
-            padding: 40px;
-            text-align: center;
-        }
-        h1 { color: #333; margin-bottom: 10px; font-size: 28px; }
-        .subtitle { color: #666; margin-bottom: 30px; font-size: 14px; }
-        .repo-url {
-            background: #f5f5f5;
-            padding: 15px;
-            border-radius: 10px;
-            font-family: monospace;
-            font-size: 14px;
-            color: #333;
-            margin: 20px 0;
-            word-break: break-all;
-        }
-        .badge {
-            display: inline-block;
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            margin: 5px;
-        }
-        .badge.rootless { background: #10b981; }
-        .badge.rootful { background: #f59e0b; }
-        .info-box {
-            background: #f0fdf4;
-            border-left: 4px solid #10b981;
-            padding: 15px;
-            margin: 20px 0;
-            text-align: left;
-            border-radius: 8px;
-            font-size: 14px;
-            color: #166534;
-        }
-        .info-box strong { color: #14532d; }
-        .instructions {
-            text-align: left;
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-        .instructions h3 { color: #333; margin-bottom: 15px; font-size: 16px; }
-        .instructions ol { margin-left: 20px; color: #555; line-height: 1.8; }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>MyTweak Repository</title>
+  <style>
+    :root { font-family: system-ui, sans-serif; line-height: 1.65; color-scheme: light dark; }
+    body { max-width: 60rem; margin: 0 auto; padding: 3rem 1.25rem; }
+    h1 { margin-bottom: .25rem; line-height: 1.25; }
+    h2 { margin-top: 2.5rem; }
+    p { max-width: 48rem; }
+    .muted, small { color: light-dark(#555, #bbb); }
+    .address { padding: 1rem; border: 1px solid light-dark(#ccc, #666); border-radius: .5rem; overflow-wrap: anywhere; }
+    .table { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th, td { padding: .9rem .75rem; border-bottom: 1px solid light-dark(#ddd, #555); vertical-align: top; }
+    th { white-space: nowrap; }
+    td { overflow-wrap: anywhere; }
+    a { color: light-dark(#1752a5, #9dc3ff); }
+    footer { margin-top: 3rem; font-size: .9rem; }
+    @media (max-width: 36rem) { body { padding-top: 2rem; } th, td { padding: .7rem .35rem; } }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>📱 MyTweak Repository</h1>
-        <p class="subtitle">iOS 插件源 - 标准架构支持</p>
-        <div class="repo-url" id="repoUrl">https://fengyunyongjie.github.io/mytweak/</div>
-        <div>
-            <span class="badge rootless">Rootless (iphoneos-arm64)</span>
-            <span class="badge rootful">Rootful (iphoneos-arm)</span>
-            <span class="badge">iOS 12-18</span>
-        </div>
-        <div class="info-box">
-            <strong>✅ 已修正架构命名</strong><br>
-            • Rootless: Architecture = iphoneos-arm64<br>
-            • Rootful: Architecture = iphoneos-arm<br>
-            • Release 文件声明两个架构
-        </div>
-        <div class="instructions">
-            <h3>📥 添加后请清除缓存</h3>
-            <ol>
-                <li>在 Sileo 中删除此源</li>
-                <li>在设置中点击"清除缓存"</li>
-                <li>重新添加源</li>
-                <li>刷新源后即可看到插件</li>
-            </ol>
-        </div>
-    </div>
-    <script>
-        document.getElementById('repoUrl').textContent = window.location.href;
-    </script>
+  <header>
+    <p class="muted">个人 iOS 插件仓库</p>
+    <h1>MyTweak Repository</h1>
+    <p>iOS 插件源，按包提供 rootful / rootless 构建</p>
+  </header>
+  <main>
+    <section aria-labelledby="add-source">
+      <h2 id="add-source">添加源</h2>
+      <p>在兼容的包管理器中添加以下地址。客户端会按包架构选择可安装的版本。</p>
+      <p class="address"><a href="https://fengyunyongjie.github.io/mytweak/">https://fengyunyongjie.github.io/mytweak/</a></p>
+    </section>
+    <section aria-labelledby="packages">
+      <h2 id="packages">当前收录 · 5 个构建</h2>
+      <p class="muted">列表来自实际 deb 元数据。收录不等于设备验证通过；系统、越狱环境和注入框架兼容性需按插件确认。没有列出的 rootless 构建尚未提供。</p>
+      <p>HelloTweak 1.0.0-2：rootless 已在 iPad7,11 / iPadOS 18.7.12 验证时间后显示 🔥；rootful 仅构建验证通过。其他系统和设备尚未实测。</p>
+      <div class="table">
+        <table>
+          <thead><tr><th scope="col">插件</th><th scope="col">版本</th><th scope="col">包架构</th></tr></thead>
+          <tbody><tr><td><a href="debs/com.fengyn.hellotweak_1.0.0-2_iphoneos-arm.deb">Hello Tweak</a><br><small>com.fengyn.hellotweak</small></td><td>1.0.0-2</td><td>rootful<br><small>iphoneos-arm</small></td></tr>
+<tr><td><a href="debs/com.fengyn.hellotweak_1.0.0-2_iphoneos-arm64.deb">Hello Tweak</a><br><small>com.fengyn.hellotweak</small></td><td>1.0.0-2</td><td>rootless<br><small>iphoneos-arm64</small></td></tr>
+<tr><td><a href="debs/com.yourcompany.ack_0.0.1-1000%2Bstable20260515_iphoneos-arm.deb">Ack</a><br><small>com.yourcompany.ack</small></td><td>0.0.1-1000+stable20260515</td><td>rootful<br><small>iphoneos-arm</small></td></tr>
+<tr><td><a href="debs/com.yourcompany.gck_0.0.1-1000%2Bstable20260519_iphoneos-arm.deb">Gck</a><br><small>com.yourcompany.gck</small></td><td>0.0.1-1000+stable20260519</td><td>rootful<br><small>iphoneos-arm</small></td></tr>
+<tr><td><a href="debs/com.yourcompany.sck_0.0.1-1003%2Bstable20260610_iphoneos-arm.deb">Sck</a><br><small>com.yourcompany.sck</small></td><td>0.0.1-1003+stable20260610</td><td>rootful<br><small>iphoneos-arm</small></td></tr></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <footer class="muted">仓库元数据：<a href="Packages">Packages</a> · <a href="Release">Release</a></footer>
 </body>
 </html>
