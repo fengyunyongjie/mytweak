@@ -30,6 +30,38 @@ Description: 简单的测试插件 - 在状态栏时间后面添加火焰图标
 Author: fengyn
 Name: Hello Tweak
 
+Package: com.fengyn.hellotweak
+Version: 1.0.0-3
+Architecture: iphoneos-arm64
+Maintainer: fengyn <fengyunyongjie@users.noreply.github.com>
+Installed-Size: 168
+Depends: mobilesubstrate (>= 0.9.5000), firmware (>= 15.0)
+Filename: debs/com.fengyn.hellotweak_1.0.0-3_iphoneos-arm64.deb
+Size: 5598
+MD5sum: 2b1c8832a91f79a2a464138dda54c71d
+SHA1: 51cde6f3c542e7a12931a449bbde4dd459745057
+SHA256: f5a6ebfc7df4b103c32d93f60d5f682678de11917c0b7d7e4cc75ae94aa2a4a4
+Section: Tweaks
+Description: 状态栏时间后显示火焰与星光，用于版本升级降级测试
+Author: fengyn
+Name: Hello Tweak
+
+Package: com.fengyn.hellotweak
+Version: 1.0.0-3
+Architecture: iphoneos-arm
+Maintainer: fengyn <fengyunyongjie@users.noreply.github.com>
+Installed-Size: 56
+Depends: mobilesubstrate (>= 0.9.5000), firmware (>= 12.0)
+Filename: debs/com.fengyn.hellotweak_1.0.0-3_iphoneos-arm.deb
+Size: 4244
+MD5sum: fdf02ec85bbcb75c558d018e178505d7
+SHA1: e5fd05b37ee7e071d8ebf10c412b125839e5c5d9
+SHA256: e975b45b620d8d177c5f03dd18420db766e32c3f13d431ef42781d677af8e20a
+Section: Tweaks
+Description: 状态栏时间后显示火焰与星光，用于版本升级降级测试
+Author: fengyn
+Name: Hello Tweak
+
 Package: com.yourcompany.ack
 Version: 0.0.1-1000+stable20260515
 Architecture: iphoneos-arm
