@@ -1,6 +1,6 @@
 # HelloTweak
 
-同一份 Logos 源码构建 rootful / rootless 示例包。`timeString` 返回原字符串后追加一个空格和火焰图标；原返回值为 `nil` 时仍为 `nil`。只在初始化时确认 `SBStatusBarStateProvider` 类和 `timeString` 实例方法都存在后启用 hook，否则不启用。已移除没有行为的 `setDate:` 透传 hook。
+同一份 Logos 源码构建 rootful / rootless 示例包。现代状态栏通过 `_UIStatusBarTimeItem` / `STUIStatusBarTimeItem` 标记自己持有的时间文本视图，只给这些视图追加一个空格和版本标记（`1.0.0-2`：🔥；`1.0.0-3`：🔥✨）；不修改日期、电量或其他文本。空字符串和 `nil` 保留，已有后缀不会重复追加。所有 hook 在初始化前检查目标类与方法；现代接口不可用时才回退到旧 `SBStatusBarStateProvider -timeString`。
 
 ## 构建
 
@@ -30,7 +30,7 @@ THEOS=/opt/theos ./examples/compile.sh --scheme rootless
 - `--rootful-min-ios` / `--rootless-min-ios` 同时配置编译最低系统和生成 control 的 `firmware` 下限；不能低于本示例的 12.0 / 15.0。
 - `--sdk` 是编译 SDK 版本，默认为 Theos 可见的 `latest`，不代表最低系统。可固定版本复现构建。
 - 默认 rootful **不声称覆盖 iOS 12/13 的 arm64e 设备**。现代 clang 不支持该旧 ABI；脚本拒绝 `arm64e` + 低于 14.0 的最低系统组合。需要现代 arm64e rootful 时显式传 `--rootful-archs 'arm64 arm64e' --rootful-min-ios 14.0`。旧 ABI 必须另行验证旧工具链。
-- 始终使用 `FINALPACKAGE=1`，默认版本取源码 control 的 `1.0.0-1`，可用 `--version` 或环境变量 `PACKAGE_VERSION` 覆盖。两个模式复用相同版本，以不同 Debian 架构区分，不附加 `.rootless` 或调试编号，也不修改源码版本。
+- 始终使用 `FINALPACKAGE=1`，默认版本取源码 control 的 `1.0.0-3`，可用 `--version` 或环境变量 `PACKAGE_VERSION` 覆盖。两个模式复用相同版本，以不同 Debian 架构区分，不附加 `.rootless` 或调试编号，也不修改源码版本。
 - 两模式依赖均为 `mobilesubstrate (>= 0.9.5000)` 加对应的 `firmware` 下限。此为兼容 hook API 的依赖，不断言所有 rootless 环境必须使用 ElleKit。
 
 ## 隔离输出与核验
@@ -47,7 +47,14 @@ THEOS=/opt/theos ./examples/compile.sh --scheme rootless
 
 产物不会自动复制到正式 `debs/`，也不会安装、提交或发布。确认包及设备兼容性后，再单独按仓库发布流程处理。
 
+## 升级与降级测试
+
+正式源保留 `1.0.0-2` 的 🔥 和 `1.0.0-3` 的 🔥✨，两个版本均提供两种包架构。已在上述 rootless iPad 上通过正式源执行升级、显式降级、再次升级，最终用户确认新版显示 🔥✨。中间降级后的图标未单独目视确认；Sileo 图形界面和 rootful 实机尚未验证。
+
+具体命令、安装指纹与测试范围见 [版本切换测试](../../docs/hellotweak-version-testing.md)。
+
 ## 测试与实测边界
+
 
 ```bash
 python3 -I tests/test_example.py -v
@@ -57,4 +64,4 @@ python3 -I tests/test_example.py -v
 
 本机实际完成默认双模式 release 构建并核验：Theos `/opt/theos`（`13c2237`）、Xcode 16.2（16C5032a）、Apple clang 16.0.0、iPhoneOS 18.2 SDK、GNU Make 3.81、`ldid`。`lipo` / `vtool` 显示 rootful 为 `arm64`、minos 12.0；rootless 为 `arm64 arm64e`，两 slice 均 minos 15.0，SDK 均为 18.2。包元数据依赖和前缀与表格一致。Theos 提示未并行构建，链接器提示旧 `-multiply_defined` 参数，均未阻塞构建。
 
-**未连接设备、未安装包、未验证 SpringBoard 私有 API 在任何具体 iOS 版本存在或显示效果。** iOS 12+ / 15+ 是编译及包元数据的目标意图，不是所有版本/设备的兼容性承诺；不存在目标类或 selector 时插件保持未启用。
+2026-11-12 在 iPad7,11 / iPadOS 18.7.12 rootless 设备上，使用 ElleKit 1.2 确认 `1.0.0-1` 已加载但未显示火焰。运行时诊断证实旧类没有 `timeString`，实际视图来自 StatusKit。升级到加入现代时间项适配的 `1.0.0-2` 后，**用户已目视确认主屏幕时间后出现 🔥**；两种构建通过，设备配置成功且短时观察未发现新增 SpringBoard 崩溃。rootful、其他设备和长期稳定性尚未实测。详见 [设备测试记录](../../docs/device-test-2026-11-12.md)。iOS 12+ / 15+ 是最低编译及安装目标，不是所有版本/设备的兼容性承诺。

@@ -14,6 +14,8 @@
 
 | 包 | 版本 | 已提供架构 | 本仓库源码 | 本次设备验证 |
 |---|---|---|---|---|
+| `com.fengyn.hellotweak` | `1.0.0-3` | `iphoneos-arm`、`iphoneos-arm64` | 有 | rootless APT 升降级通过、用户确认 🔥✨；rootful 未执行 |
+| `com.fengyn.hellotweak` | `1.0.0-2` | `iphoneos-arm`、`iphoneos-arm64` | 有 | rootless 基本显示通过；rootful 未执行 |
 | `com.yourcompany.ack` | `0.0.1-1000+stable20260515` | `iphoneos-arm` | 无 | 未执行 |
 | `com.yourcompany.gck` | `0.0.1-1000+stable20260519` | `iphoneos-arm` | 无 | 未执行 |
 | `com.yourcompany.sck` | `0.0.1-1003+stable20260610` | `iphoneos-arm` | 无 | 未执行 |
@@ -24,11 +26,15 @@
 
 ## HelloTweak 示例
 
-目标为单源码双构建：rootful iOS 12+、rootless iOS 15+。本次已用 Theos、Xcode 16.2 / clang 16.0.0 和 SDK 18.2 实际构建成功：rootful `arm64` 的 Mach-O 最低系统为 12.0；rootless `arm64 + arm64e` 两个 slice 的最低系统均为 15.0。control、包内路径及二进制检查通过，未安装到设备，也未加入正式 `debs/`。
+目标为单源码双构建：rootful iOS 12+、rootless iOS 15+。本次已用 Theos、Xcode 16.2 / clang 16.0.0 和 SDK 18.2 实际构建成功：rootful `arm64` 的 Mach-O 最低系统为 12.0；rootless `arm64 + arm64e` 两个 slice 的最低系统均为 15.0。control、包内路径及二进制检查通过；`1.0.0-2` 和 `1.0.0-3` 各两种包已保留在正式 `debs/`。
+
+2026-11-12 在 iPad7,11 / iPadOS 18.7.12 rootless 设备上，`1.0.0-1` 已加载但未显示火焰。运行时证实旧 `timeString` 不存在，实际使用 StatusKit；升级现代适配版 `1.0.0-2` 后，**用户已目视确认主屏幕时间后出现 🔥**，安装、加载、基本显示和短时运行通过。rootful、其他设备及长期稳定性尚未实测。详见 [设备测试记录](device-test-2026-11-12.md)。
+
+`1.0.0-3` 在同一设备完成正式源 APT 升级、显式降级、再次升级；用户最终确认显示 🔥✨。两版本均保留，详细证据和未签名源的临时信任处理见 [版本切换测试](hellotweak-version-testing.md)。中间降级后的图标未单独目视确认，rootful 仍未实测。
 
 这些是**最低编译/安装目标和本地构建结果**，不是宣称覆盖所有后续 iOS。默认 CPU 与工具链限制见 [示例说明](../examples/HelloTweak/README.md)。
 
-示例依赖 SpringBoard 私有类 `SBStatusBarStateProvider` 的 `timeString`。类或 selector 缺失时不安装该 hook；这能避免无目标初始化，不代表它能在缺少这个 API 的系统上继续显示符号。只能在实际验证后记录功能支持。
+现代适配检查 `_UIStatusBarTimeItem` / `STUIStatusBarTimeItem` 与相应字符串视图的方法，按时间项所持有视图限定修改范围；旧 `SBStatusBarStateProvider -timeString` 仅作现代接口不可用时的回退。目标接口缺失时不启用对应 hook。类或方法存在仍不证明该版本实际走这条显示路径，需设备功能验证。
 
 ## 每次设备验证应记录
 

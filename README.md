@@ -4,7 +4,7 @@
 
 源地址：<https://fengyunyongjie.github.io/mytweak/>
 
-> 当前 `debs/` 中的 Ack、Gck、Sck 都是 rootful 包，源码不在此仓库。仓库能收录 rootless 包，不代表这些正式插件已经完成 rootless 适配或实机验证。HelloTweak 是独立构建示例，不会自动发布。
+> `debs/` 保留 HelloTweak `1.0.0-2`（🔥）和 `1.0.0-3`（🔥✨）的 rootful/rootless 包，可用于升级与显式降级测试；另含 Ack、Gck、Sck 的 rootful 包。HelloTweak `1.0.0-2` rootless 已在 iPad7,11 / iPadOS 18.7.12 验证基本显示，新版本设备切换结果见测试记录。rootful 仅构建通过。Ack/Gck/Sck 的源码不在此仓库，其 rootless 构建尚未提供。后续构建仍不会自动发布。
 
 ## 快速开始
 
