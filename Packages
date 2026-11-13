@@ -62,6 +62,36 @@ Description: 状态栏时间后显示火焰与星光，用于版本升级降级�
 Author: fengyn
 Name: Hello Tweak
 
+Package: com.nitin.keychaineditor
+Version: 2.1
+Architecture: iphoneos-arm
+Maintainer: Nitin Jami <nitin.jami@gmail.com>
+Filename: debs/com.nitin.keychaineditor_2.1_iphoneos-arm.deb
+Size: 44302954
+MD5sum: 6144c7d37bec0516168a2897ea1d433e
+SHA1: 408f4204ed323c0673dc2b8a0a279c1667667205
+SHA256: 6880d495c76195b2182cf02d3573dc71023422759230fa0159cad28f4af69b84
+Section: Tools
+Homepage: https://github.com/NitinJami/keychaineditor
+Description: CLI to dump keychain items including the new access controls. Supports only 64-bit arch.
+Author: Nitin Jami <nitin.jami@gmail.com>
+Name: Keychain Editor
+
+Package: com.nitin.keychaineditor
+Version: 2.3
+Architecture: iphoneos-arm64
+Maintainer: Nitin Jami <nitin.jami@gmail.com>
+Filename: debs/com.nitin.keychaineditor_2.3_iphoneos-arm64.deb
+Size: 50596
+MD5sum: 0a692814db9d5b5d5af15f9ed3b48fc5
+SHA1: 279b52856e0b5aa5bec3eaa077577c969d85bdb5
+SHA256: a20cbbc926ddbeb3f65672aef6418a3cb61264f035cb199f4fc0a955ef846955
+Section: Tools
+Homepage: https://github.com/NitinJami/keychaineditor
+Description: CLI to dump keychain items including the new access controls. Supports only 64-bit arch.
+Author: Nitin Jami <nitin.jami@gmail.com>
+Name: Keychain Editor
+
 Package: com.yourcompany.ack
 Version: 0.0.1-1000+stable20260515
 Architecture: iphoneos-arm
