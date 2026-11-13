@@ -156,16 +156,22 @@ class ExampleTests(unittest.TestCase):
                 self.assertEqual(output.call_args_list[0].args[0][1], "--field")
                 self.assertEqual(output.call_args_list[1].args[0][1], "--fsys-tarfile")
 
-    def test_hook_is_guarded_and_no_passthrough_hook_remains(self):
+    def test_time_hooks_are_scoped_and_guarded(self):
         source = (ROOT / "examples/HelloTweak/Tweak.x").read_text(encoding="utf-8")
         self.assertNotIn("setDate:", source)
         self.assertNotIn("SBStatusBarContentView", source)
-        self.assertEqual(source.count("%init("), 1)
-        guard = source.index("if (provider != Nil && class_getInstanceMethod(provider, @selector(timeString)) != NULL)")
-        self.assertLess(guard, source.index("%init(HelloTweakHooks"))
-        self.assertIn("objc_getClass(\"SBStatusBarStateProvider\")", source)
-        self.assertIn("stringByAppendingString:@\" \U0001f525\"", source)
-        self.assertIn("NSString *original = %orig;", source)
+        self.assertIn("HelloTweakSupportsTimeItem(uiItem)", source)
+        self.assertIn("HelloTweakSupportsTimeItem(stItem)", source)
+        self.assertIn("HelloTweakHasMethod(provider, @selector(timeString))", source)
+        self.assertIn("if (!uiSupported && !stSupported)", source)
+        self.assertIn("objc_getAssociatedObject(self, &HelloTweakTimeViewKey)", source)
+        self.assertIn("@\"shortTimeView\"", source)
+        self.assertIn("@\"pillTimeView\"", source)
+        self.assertNotIn("@\"dateView\"", source)
+        self.assertIn("[text hasSuffix:@\" \U0001f525\"]", source)
+        self.assertIn("[text hasSuffix:@\" \U0001f525\u2728\"]", source)
+        self.assertIn("return [text stringByAppendingString:@\"\u2728\"]", source)
+        self.assertIn("text.length == 0", source)
 
 
 if __name__ == "__main__":

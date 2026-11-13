@@ -11,7 +11,7 @@ include $(THEOS)/makefiles/common.mk
 TWEAK_NAME = HelloTweak
 HelloTweak_FILES = Tweak.x
 HelloTweak_CFLAGS = -fobjc-arc
-HelloTweak_FRAMEWORKS = Foundation
+HelloTweak_FRAMEWORKS = Foundation UIKit
 
 include $(THEOS_MAKE_PATH)/tweak.mk
 
